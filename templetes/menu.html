@@ -1,0 +1,612 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu</title>
+<style>
+    .bg{
+        background-color: rgb(226, 186, 186);
+        width: 100%;
+        height: auto;
+    }
+    .head{
+        background-image: url('/static/flag.webp');
+        font-size: 50px;
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
+    #tt{
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: underline 20% solid green;
+        text-shadow: 0 0 10px whitesmoke;
+    }
+    ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: #9c0404;
+        overflow: hidden;
+    }
+    li{
+        float: left;
+        border-right: 1px solid rgb(231, 56, 56);
+    }
+    li:last-child {
+        border-left: none;
+    }
+    li #bt{
+        border-radius: 8px;
+        font-size: 40px;
+        background-color: #870000;
+        display:block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        margin-left: 5px;
+        margin-right: 5px;
+        text-decoration: none;
+    }
+    li #bt:hover:not(.active){
+        background-color: #111;
+    }
+    .active{
+        background-color: #04AA6D;
+    }
+    .footer{
+        position: relative;
+        background-color: rgb(12, 89, 12);   
+        margin-top: 3600px;
+    }
+    .text{
+        color: aliceblue;
+        padding-top: 2px;
+        padding-bottom: 5px;
+        margin-top: 10px;
+        font-size: 25px;
+        text-align: center;
+    }
+    #myBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: red;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    #myBtn:hover {
+        background-color: #555;
+    }
+    .pl{
+        font-size: 30px;
+        background-color: green;
+        text-align: left;
+        padding-left: 40px;
+        text-shadow: 0 0 10px white;
+    }
+    *{
+        box-sizing: border-box;
+    }
+    .row{
+        margin: 10px -16px;
+        position: absolute;
+        margin-left: 30px;
+    }
+    .row, .row>.column{
+        padding: 10px;
+    }
+    .column{
+        float: left;
+        width: 320px;
+        margin-top: 20px;
+        margin-left: 40px;
+        margin-bottom: 20px;
+    }
+    .row:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .content{
+        font-size: 20px;
+        background-color: wheat;
+        padding: 20px;
+    }
+    select{
+        font-size: 20px;
+    }
+
+    .sum{
+        width: 300px;
+        font-size: 20px;
+        background-color: #04AA6D;
+        padding: 40px;
+        padding-bottom: 40px;
+        border-radius: 8px;
+        text-align: left;
+    }
+    #confirm, #paybt {
+        background-color: darkred;
+        color: white;
+        padding: 12px;
+        margin: 10px 0;
+        border: none;
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 17px;
+    }
+    .icon-container {
+        margin-bottom: 10px;
+    }
+    input[type=button],input[type=text]{
+        width: 100%;
+        margin-top: 10px;
+        height: 35px;
+        border-radius: 8px;
+    }
+    @media screen and (max-width:900px) {
+        .column{
+            width: 50%;
+        }
+    }
+    @media screen and (max-width:600px) {
+        .column{
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %} 
+<div class="bg">
+    <div class="head">
+        <h1 id="tt"><b>Yummy Pizza</b></h1> 
+    </div>
+    <div class="menu">
+        <ul>
+            <li><form action="/index/" method="get">
+                <button class="active" id="bt" name="button" type="submit"> <b>HOME</b> </button>
+            </form></li>
+            <li><form action="/menu/" method="post">
+                <button id="bt" name="button" type="submit"> Menu </button>
+            </form></li>
+            <li><form action="/memLog/" method="post">
+                <button id="bt" name="button" type="submit"> Member </button>
+            </form></li>
+            <li><form action="/address/" method="post">
+                <button id="bt" name="button" type="submit"> Address </button>
+            </form></li>
+            <li><form action="/team/" method="post">
+                <button id="bt" name="button" type="submit"> Our team </button>
+            </form></li>
+            <li style="float:right"><form action="/book/" method="post">
+                <button id="bt" name="button" type="submit"> <b>Book</b> </button>
+            </form></li>
+        </ul>
+    </div>
+    <div class="pl">
+        <h1>Menu</h1>
+    </div>
+    <div class="row">
+        <div class="column">
+            <form action="/addlist1/" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='marg.webp') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza1">
+                    {% for i in n1 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p> Price: 10 kr</p>
+                <p> Topping :"Tomato sauce, mozzarella"</p>  
+                Size:
+                <select id="time-selection" name="size1">
+                    {% for o in s1 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount1" id="quantity1" value=""> 
+                <input type="button" id="button1" value="   BUY   " onClick="Clickme1();"> <p></p>
+                Price: <br> <input type="text" name="price1" id="total1" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column">
+            <form action="/addlist2/" name="myForm2" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='pepp.jpg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza2">
+                    {% for i in n2 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price : 11 kr</p> 
+                <p> Topping :"Tomato sauce, mozzarella, pepperoni"</p>  
+                Size:
+                <select id="time-selection" name="size2">
+                    {% for o in s2 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount2" id="quantity2" value=""> 
+                <input type="button" id="button2" value="   BUY   " onClick="Clickme2();"> <p></p>
+                Price: <br> <input type="text" name="price2" id="total2" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+        </form>
+        </div>
+        <div class="column">
+            <form action="/addlist3/" name="myForm3" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='hawa.jpeg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza3">
+                    {% for i in n3 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p></p>Price: 11 kr </p>
+                <p> Topping :"Tomato sauce, mozzarella, ham, pineapple"</p>  
+                Size:
+                <select id="time-selection" name="size3">
+                    {% for o in s3 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount3" id="quantity3" value=""> 
+                <input type="button" id="button3" value="   BUY   " onClick="Clickme3();"> <p></p>
+                Price: <br> <input type="text" name="price3" id="total3" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column">
+            <form action="/addlist4/" name="myForm4" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='vega.webp') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza4">
+                    {% for i in n4 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price: 11 kr </p>
+                <p> Topping :"Tomato sauce, mozzarella, mushrooms, olives, peppers"</p>  
+                Size:
+                <select id="time-selection" name="size4">
+                    {% for o in s4 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount4" id="quantity4" value=""> 
+                <input type="button" id="button4" value="   BUY   " onClick="Clickme4();"> <p></p>
+                Price: <br> <input type="text" name="price4" id="total4" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column">
+            <form action="/addlist5/" name="myForm5" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='seaf.jpg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza5">
+                    {% for i in n5 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price: 12 kr</p>
+                <p> Topping :"Tomato sauce, mozzarella, shrimp, crab, tuna"</p><br>  
+                Size:
+                <select id="time-selection" name="size5">
+                    {% for o in s5 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount5" id="quantity5" value=""> 
+                <input type="button" id="button5" value="   BUY   " onClick="Clickme5();"> <p></p>
+                Price: <br> <input type="text" name="price5" id="total5" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column">
+            <form action="/addlist6/" name="myForm6" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='carb.jpg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza6">
+                    {% for i in n6 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price: 12 kr</p> 
+                <p> Topping :"Tomato sauce, mozzarella, bacon, egg"</p> <br>
+                Size:
+                <select id="time-selection" name="size6">
+                    {% for o in s6 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p></p>
+                Quantity: <br> <input type="text" name="amount6" id="quantity6" value=""> 
+                <input type="button" id="button6" value="   BUY   " onClick="Clickme6();"> <p></p>
+                Price: <br> <input type="text" name="price6" id="total6" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column"> 
+            <form action="/addlist7/" name="myForm7" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='qust.jpg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza7">
+                    {% for i in n7 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price: 12 kr</p> 
+                <p> Topping :"Tomato sauce, mozzarella, ham, mushrooms, artichokes, olives"</p>  
+                Size:
+                <select id="time-selection" name="size7">
+                    {% for o in s7 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount7" id="quantity7" value=""> 
+                <input type="button" id="button7" value="   BUY   " onClick="Clickme7();"> <p></p>
+                Price: <br> <input type="text" name="price7" id="total7" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column">
+            <form action="/addlist8/" name="myForm8" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='qufo.jpg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza8">
+                    {% for i in n8 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price: 12 kr</p> 
+                <p> Topping :"Tomato sauce, mozzarella, gorgonzola, parmesan, emmental"</p>  
+                Size:
+                <select id="time-selection" name="size8">
+                    {% for o in s8 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount8" id="quantity8" value=""> 
+                <input type="button" id="button8" value="   BUY   " onClick="Clickme8();"> <p></p>
+                Price: <br> <input type="text" name="price8" id="total8" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column">
+            <form action="/addlist9/" name="myForm9" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='napo.jpg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza9">
+                    {% for i in n9 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price: 13 kr</p> 
+                <p> Topping :"Tomato sauce, mozzarella, anchovies, capers"</p> <br>  
+                Size:
+                <select id="time-selection" name="size9">
+                    {% for o in s9 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount9" id="quantity9" value=""> 
+                <input type="button" id="button9" value="   BUY   " onClick="Clickme9();"> <p></p>
+                Price: <br> <input type="text" name="price9" id="total9" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>
+        <div class="column">
+            <form action="/addlist10/" name="myForm10" method="post">
+            <div class="content">
+                <img src="{{ url_for('static', filename='calz.jpg') }}" alt="pic" width="260px" height="250px"><p></p>
+                Name:
+                <select id="time-selection" name="pizza10">
+                    {% for i in n10 %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select><p></p>
+                <p>Price: 13 kr</p> 
+                <p> Topping :"Tomato sauce, mozzarella, ham, mushrooms, peppers"</p>
+                Size:
+                <select id="time-selection" name="size10">
+                    {% for o in s10 %}
+                    <option value="{{ o.size }}">{{ o.size }}</option>
+                    {% endfor %}
+                </select><p></p>
+                Quantity: <br> <input type="text" name="amount10" id="quantity10" value=""> 
+                <input type="button" id="button10" value="   BUY   " onClick="Clickme10();"> <p></p>
+                Price: <br> <input type="text" name="price10" id="total10" value=""> <p></p>
+                <button type="submit" id="confirm">confirm</button>
+            </div>
+            </form>
+        </div>        
+        <div class="column">
+            <form action="/payment/" name="payment" method="post">
+            <div class="sum"> 
+                <br> PAYMENT: <br>
+                <!--<br> TOTALBILL: <br>
+                <br><input type="text" name="total" id="totalbill" ><br>-->
+                <button id="paybt" type="submit" value="pay">pay</button>
+            </div>
+                </form>   
+        </div>
+    </div>
+    
+    <button onclick="topFunction()" id="myBtn" title="Go to top">top</button>
+    <div class="footer">
+        <div class="text">
+            <p><b>Address</b></p>
+            <p>Tel:072 835 0991</p>
+            <p>Krigsstigen 14</p>
+            <p>182 73 Stocksund</p>
+            <p>Stockholm Sweden</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let mybutton = document.getElementById("myBtn");
+
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    var totalbill = 0;  
+    function Clickme1() {
+    var quant1 = parseInt(document.getElementById("quantity1").value);
+    var total1 = 0;
+    
+    total1 = 10 * quant1;
+    document.getElementById("total1").value = total1;
+    totalbill += total1;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme2() {
+    var quant2 = parseInt(document.getElementById("quantity2").value);
+    var total2 = 0;
+    
+    total2 = 11 * quant2;
+    document.getElementById("total2").value = total2;
+    totalbill += total2;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme3() {
+    var quant3 = parseInt(document.getElementById("quantity3").value);
+    var total3 = 0;
+    
+    total3 = 11 * quant3;
+    document.getElementById("total3").value = total3;
+    totalbill += total3;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme4() {
+    var quant4 = parseInt(document.getElementById("quantity4").value);
+    var total4 = 0;
+    
+    total4 = 11 * quant4;
+    document.getElementById("total4").value = total4;
+    totalbill += total4;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme5() {
+    var quant5 = parseInt(document.getElementById("quantity5").value);
+    var total5 = 0;
+    
+    total5 = 12 * quant5;
+    document.getElementById("total5").value = total5;
+    totalbill += total5;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme6() {
+    var quant6 = parseInt(document.getElementById("quantity6").value);
+    var total6 = 0;
+    
+    total6 = 12 * quant6;
+    document.getElementById("total6").value = total6;
+    totalbill += total6;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme7() {
+    var quant7 = parseInt(document.getElementById("quantity7").value);
+    var total7 = 0;
+    
+    total7 = 12 * quant7;
+    document.getElementById("total7").value = total7;
+    totalbill += total7;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme8() {
+    var quant8 = parseInt(document.getElementById("quantity8").value);
+    var total8 = 0;
+    
+    total8 = 12 * quant8;
+    document.getElementById("total8").value = total8;
+    totalbill += total8;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme9() {
+    var quant9 = parseInt(document.getElementById("quantity9").value);
+    var total9 = 0;
+    
+    total9 = 13 * quant9;
+    document.getElementById("total9").value = total9;
+    totalbill += total9;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    function Clickme10() {
+    var quant10 = parseInt(document.getElementById("quantity10").value);
+    var total10 = 0;
+    
+    total10 = 13 * quant10;
+    document.getElementById("total10").value = total10;
+    totalbill += total10;
+    document.getElementById("totalbill").value = totalbill;
+    }
+
+    if (!localStorage.getItem('totalbill'))
+        localStorage.setItem('totalbill', 0);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('#totalbill').innerHTML = localStorage.getItem('counter');
+
+        document.querySelector('#confirm').onclick = () => {
+            let counter = localStorage.getItem('totalbill');
+            totalbill++;
+
+            document.querySelector('#totalbill').innerHTML = counter;
+            localStorage.setItem('totalbill', totalbill);
+        }
+    });
+
+</script>
+
+{% endblock %}

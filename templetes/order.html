@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu</title>
+<style>
+    .bg{
+        background-color: rgb(226, 186, 186);
+        width: 100%;
+        height: auto;
+    }
+    .head{
+        background-image: url('/static/flag.webp');
+        font-size: 50px;
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
+    #tt{
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: underline 20% solid green;
+        text-shadow: 0 0 10px whitesmoke;
+    }
+    .footer{
+        position: relative;
+        background-color: darkred;    
+    }
+    .text{
+        color: aliceblue;
+        padding-top: 2px;
+        padding-bottom: 5px;
+        margin-top: 10px;
+        font-size: 25px;
+        text-align: center;
+    }
+    #myBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: red;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    #myBtn:hover {
+        background-color: #555;
+    }
+    .pl{
+        font-size: 30px;
+        background-color: rgb(194, 3, 3);
+        text-align: left;
+        padding-left: 40px;
+        margin-top: -50px;
+        text-shadow: 0 0 10px white;
+    }
+    .click{
+        text-align: center;
+        padding: 20px;
+    }
+    .btm{
+        font-size: 50px;
+        padding: 20px;
+        width: 100%;
+        border-radius: 8px;
+        background-color: lightgreen;
+        border: 5px solid seagreen;
+        cursor: pointer;
+    }
+    #detail{
+        margin-top: 10px;
+        background-color: #f2f2f2;
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #detail td,#detail th{
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    #detail tbody:nth-child(even){
+        background-color: #f2f2f2;
+    }
+    #detail tbody:hover{
+        background-color: #ddd;
+    }
+    #detail th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+    a{
+        background-color: red;
+        color: white;
+        border-radius: 8px;
+    }
+</style>
+{% endblock %}
+
+{% block body %} 
+<div class="bg">
+    <div class="head">
+        <h1 id="tt"><b>Yummy Pizza</b></h1> 
+    </div>
+    <div class="pl">
+        <h1>Welcome to our Order</h1>
+    </div>
+    <table id="detail">
+        <thead>
+            <th><b>Id</b></th>
+            <th><b>Pizza</b></th>
+            <th><b>Size</b></th>
+            <th><b>Amount</b></th>
+            <th><b>Price</b></th>
+            <th><b>Delete</b></th>
+        </thead>
+        {% for menu in menus %}
+        <tbody>                    
+            <td>{{menu.id}} </td>
+            <td>{{menu.pizza}} </td>
+            <td>{{menu.size}} </td>
+            <td>{{menu.amount}} </td>
+            <td>{{menu.price}} </td>
+            <td><a href="/delete/{{menu.id}}" type="button">Delete</a> </td>
+        </tbody>
+        {% endfor %}
+    </table>
+    <div class="click">
+        <form action="/index/" name="logout" method="get">
+            <button class="btm"><b> Log out</b> </button>
+        </form>
+    </div>
+
+
+    <div class="footer">
+        <div class="text">
+            <p><b> It support</b></p>
+            <p>Tel:072 835 0991</p>
+            <p>Krigsstigen 14</p>
+            <p>182 73 Stocksund</p>
+            <p>Stockholm Sweden</p>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+
+{% endblock %}
